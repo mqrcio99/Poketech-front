@@ -1,0 +1,55 @@
+.footer {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--bg-surface);
+  color: var(--text-default);
+  box-sizing: border-box;
+  border-top: 1px solid var(--bg-app);
+}
+
+/* Coloca as 3 colunas principais (about, project, institution) lado a lado */
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.about,
+.project,
+.institution {
+  flex: 1; /* Faz as três colunas dividirem o espaço igualmente */
+}
+
+.about img {
+  height: 40px;
+  width: auto;
+}
+
+/* Alinha os ícones ao lado dos títulos */
+.project h3,
+.institution h3,
+.disclaimer p,
+.bottom span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.disclaimer {
+  border-top: 1px solid var(--bg-app);
+  padding-top: 15px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Coloca os dois spans finais nas extremidades */
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--bg-app);
+  padding-top: 15px;
+  font-size: 13px;
+}

@@ -1,0 +1,144 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 75px;
+  padding: 0 24px;
+  background-color: var(--bg-app);
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* --- Logo --- */
+.Logo a {
+  display: flex;
+  align-items: center;
+  padding: 2px 6px;
+}
+
+.Logo img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+/* --- Barra de Pesquisa --- */
+.Search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.Search form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.inputSearch {
+  flex: 1;
+  height: 44px;
+  background-color: #b5b5b5;
+  border: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 0 20px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+}
+
+.inputSearch::placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.SearchButton {
+  width: 44px;
+  height: 44px;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #b5b5b5;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b69b1; /* Azul do ícone de lupa */
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: filter 0.2s;
+}
+
+.SearchButton:hover {
+  filter: brightness(0.95);
+}
+
+/* --- Área de Login e Botão de Tema --- */
+/* Faz o botão de troca de cor encostar na área de login à direita */
+.container > div:nth-child(3) {
+  margin-left: auto;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.Login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #b5b5b5;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b69b1; /* Azul do ícone de usuário */
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.userButton:hover {
+  filter: brightness(0.95);
+}
+
+/* Ajuste do tamanho dos ícones do Lucide */
+.SearchButton svg,
+.userButton svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.2;
+}
+
+.Login p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.LinkA {
+  color: #2b579a;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.LinkA:hover {
+  color: #1a3a6c;
+}
+
+.TextoBase {
+  color: var(--text-default);
+}

@@ -1,0 +1,7 @@
+body {
+  background-color: var(--bg-surface);
+  color: var(--text-default);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
