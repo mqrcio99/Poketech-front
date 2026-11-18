@@ -2,6 +2,7 @@
   --bg-app: #181c24;
 
   --bg-surface: #212631;
+  --bg-surface-invertido: #ffffff;
   --bg-surface-hover: #2d3342;
 
   --gray-100: #e6e9f0;
@@ -39,12 +40,32 @@
 
   --disabled: #555f7d;
   --text-disabled: #aab3cc;
+
+  --type-inseto: #91c12f;
+  --type-planta: #61bb59;
+  --type-fada: #eb90e6;
+  --type-normal: #919aa2;
+  --type-dragao: #0c6dc4;
+  --type-psiquico: #fa7179;
+  --type-fantasma: #5269ad;
+  --type-terra: #d97845;
+  --type-aco: #5e8ca6;
+  --type-fogo: #ff9d56;
+  --type-voador: #89aae3;
+  --type-gelo: #74cfc0;
+  --type-eletrico: #f3d23c;
+  --type-pedra: #c4b78b;
+  --type-sombrio: #5e5467;
+  --type-agua: #5190d6;
+  --type-lutador: #c33b64;
+  --type-venenoso: #af63c4;
 }
 
 :root[data-theme='light'] {
   --bg-app: #f0f2f5;
 
   --bg-surface: #ffffff;
+  --bg-surface-invertido: #212631;
   --bg-surface-hover: #e4e7ec;
 
   --gray-100: #0a0f1a;

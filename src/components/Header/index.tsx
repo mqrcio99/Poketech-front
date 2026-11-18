@@ -13,7 +13,6 @@ export function Header() {
           <img src='LogoPoketech.png' alt='Logo Poketech' />
         </a>
       </div>
-
       <div className={styles.Search}>
         <form action=''>
           <input

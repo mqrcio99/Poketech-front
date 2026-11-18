@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+  min-height: calc(100vh - 80px);
+  background-color: var(--bg-surface);
+  transition: background-color 0.3s ease;
+}
+
+.gameBox {
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.titulo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.contador {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary, #111827);
+}
+
+.form {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--input-bg, #b8b8b8);
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s;
+}
+
+.input::placeholder {
+  color: #f3f4f6;
+  text-decoration: underline;
+}
+
+.listaTentativas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: 64px;
+  /* background-color: var(--bg-surface-invertido); */
+  background: linear-gradient(
+    270deg,
+    var(--bg-surface-invertido) 50%,
+    var(--bg-surface) 100%
+  );
+}
+
+.sprite {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+/* Substituído por Grid para alinhar as 5 bolinhas perfeitamente */
+.bolinhasContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 44px);
+  gap: 0.6rem;
+}
+
+.bolinha {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.acerto {
+  background-color: #69d84f; /* Verde */
+}
+
+.erro {
+  background-color: #ef2323; /* Vermelho */
+}
+
+.TextoBase {
+  color: var(--text-default);
+}
