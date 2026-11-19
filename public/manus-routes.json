@@ -1,0 +1,1 @@
+{"routes":[{"path":"/","title":"Jogar"},{"path":"/Pokedex","title":"Pokédex"},{"path":"/pokemon/:name","title":"Detalhes do Pokémon"}]}

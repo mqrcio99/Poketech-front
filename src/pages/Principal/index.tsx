@@ -1,62 +1,10 @@
-import { MainTemplate } from '../../templates/MainTemplates';
+import { ArrowRight, Check, CircleHelp, RotateCcw, Sparkles } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import type { FormEvent } from 'react';
+import { Link } from 'react-router';
+import { pokemonCatalog } from '../../data/pokemon';
 import styles from './styles.module.css';
 
-export function Principal() {
-  return (
-    <MainTemplate>
-      <div className={styles.container}>
-        <div className={styles.gameBox}>
-          <div className={styles.topBar}>
-            <h1 className={styles.titulo}>Quem é esse Pokemon?</h1>
-            <span className={`${styles.contador} ${styles.TextoBase}`}>
-              Tentativas: 5
-            </span>
-          </div>
-
-          <div className={styles.form}>
-            <input
-              type='text'
-              placeholder='Escreva aqui...'
-              className={styles.input}
-            />
-          </div>
-
-          <div className={styles.listaTentativas}>
-            <div className={styles.card}>
-              <img src='LogoPoketech.png' />
-              <div className={styles.bolinhasContainer}>
-                <span className={`${styles.bolinha} ${styles.acerto}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-              </div>
-            </div>
-
-            <div className={styles.card}>
-              <img src='LogoPoketech.png' />
-              <div className={styles.bolinhasContainer}>
-                <span className={`${styles.bolinha} ${styles.acerto}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-              </div>
-            </div>
-
-            <div className={styles.card}>
-              <img src='LogoPoketech.png' />
-              <div className={styles.bolinhasContainer}>
-                <span className={`${styles.bolinha} ${styles.acerto}`} />
-                <span className={`${styles.bolinha} ${styles.acerto}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-                <span className={`${styles.bolinha} ${styles.erro}`} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </MainTemplate>
-  );
-}
+type Attempt = { guess: string; match: boolean };
+export function Principal() { const secret = useMemo(() => pokemonCatalog[24], []); const [guess,setGuess] = useState(''); const [attempts,setAttempts] = useState<Attempt[]>([]); const won = attempts.some(item => item.match); const finished = won || attempts.length >= 5; function submit(event: FormEvent){ event.preventDefault(); const value=guess.trim(); if(!value || finished) return; setAttempts(current => [...current, { guess:value, match:value.toLowerCase()===secret.name }]); setGuess(''); }
+ return <main className={styles.home}><section className={styles.hero}><div className={styles.heroCopy}><div className={styles.pill}><Sparkles size={14}/> DESAFIO DIÁRIO</div><h1>Você consegue<br/><span>descobrir quem é?</span></h1><p>Use as pistas, arrisque um palpite e mostre que você conhece a primeira geração.</p><Link className={styles.secondaryLink} to="/Pokedex">Explorar a Pokédex <ArrowRight size={16}/></Link></div><div className={styles.gamePanel}><div className={styles.panelHeader}><div><span className={styles.overline}>QUEM É ESSE POKÉMON?</span><h2>Descubra o segredo</h2></div><div className={styles.attemptCount}><strong>{Math.max(5-attempts.length,0)}</strong><span>tentativas<br/>restantes</span></div></div><div className={styles.mystery}><img src={finished ? secret.artworkUrl : '/LogoPoketech.png'} alt={finished ? secret.displayName : 'Pokémon misterioso'} className={finished ? styles.reveal : styles.mysteryLogo}/>{finished ? <span className={styles.answer}>{won ? 'Você acertou!' : `Era ${secret.displayName}`}</span> : <span className={styles.question}>?</span>}</div><form onSubmit={submit} className={styles.guessForm}><input value={guess} onChange={event=>setGuess(event.target.value)} placeholder="Digite o nome do Pokémon" aria-label="Digite o nome do Pokémon" disabled={finished}/><button type="submit" disabled={finished || !guess.trim()}><Check size={18}/><span>Enviar palpite</span></button></form><div className={styles.attempts}>{attempts.length === 0 ? <div className={styles.empty}><CircleHelp size={18}/><span>Suas tentativas aparecerão aqui.</span></div> : attempts.map((item,index)=><div className={styles.attempt} key={`${item.guess}-${index}`}><span>#{index+1}</span><strong>{item.guess}</strong><div className={styles.dots}>{Array.from({length:5}).map((_,dot)=><i key={dot} className={dot <= index ? (item.match ? styles.good : styles.bad) : ''}/>)}</div></div>)}</div>{finished && <button className={styles.reset} type="button" onClick={()=>setAttempts([])}><RotateCcw size={15}/> Jogar novamente</button>}</div></section><section className={styles.quickLinks}><Link to="/Pokedex"><span>01</span><div><strong>Explore a Pokédex</strong><small>151 espécies da primeira geração</small></div><ArrowRight size={18}/></Link><div className={styles.note}>Uma experiência Poketech<br/><strong>feita para quem gosta de descobrir.</strong></div></section></main>; }

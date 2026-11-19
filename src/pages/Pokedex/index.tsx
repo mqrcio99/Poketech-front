@@ -1,9 +1,9 @@
-import { MainTemplate } from '../../templates/MainTemplates';
+import { ArrowDownAZ, SlidersHorizontal } from 'lucide-react';
+import { useMemo } from 'react';
+import { useSearchParams } from 'react-router';
+import { PokemonCard } from '../../components/PokemonCard';
+import { getPokemonList } from '../../services/pokemonService';
+import styles from './styles.module.css';
 
-export function Pokedex() {
-  return (
-    <MainTemplate>
-      <div></div>
-    </MainTemplate>
-  );
-}
+export function Pokedex() { const [params, setParams] = useSearchParams(); const search = params.get('search') ?? ''; const sort = params.get('sort') ?? 'number'; const list = useMemo(() => { const items = [...getPokemonList(search)]; return items.sort((a,b) => sort === 'name' ? a.displayName.localeCompare(b.displayName) : a.id-b.id); }, [search, sort]); function updateSearch(value:string){ if (value) { setParams({search:value, sort}); } else { setParams({sort}); } }
+ return <main className={styles.page}><section className={styles.hero}><div><span className={styles.kicker}>CATÁLOGO • GEN I</span><h1>Conheça os <em>151</em><br/>primeiros Pokémon.</h1><p>Explore a coleção, encontre seu favorito e descubra cada detalhe.</p></div><div className={styles.stat}><strong>{String(list.length).padStart(3,'0')}</strong><span>encontrados agora</span></div></section><section className={styles.toolbar}><label className={styles.filter}><SlidersHorizontal size={16}/><input value={search} onChange={event => updateSearch(event.target.value)} placeholder="Filtrar por nome ou número" aria-label="Filtrar Pokémon"/></label><button className={styles.sort} type="button" onClick={() => setParams({search, sort: sort === 'number' ? 'name' : 'number'})}><ArrowDownAZ size={16}/>{sort === 'number' ? 'Número' : 'Nome'}</button></section>{list.length ? <div className={styles.grid}>{list.map(pokemon => <PokemonCard key={pokemon.id} pokemon={pokemon}/>)}</div> : <div className={styles.empty}><h2>Nenhum Pokémon encontrado</h2><p>Tente buscar pelo nome ou número da Pokédex.</p></div>}</main>; }

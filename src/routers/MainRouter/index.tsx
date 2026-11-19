@@ -1,16 +1,7 @@
 import { Route, Routes } from 'react-router';
-import { NotFound } from '../../pages/NotFound';
+import { SiteLayout } from '../../components/SiteLayout';
 import { Pokedex } from '../../pages/Pokedex';
+import { PokemonDetails } from '../../pages/PokemonDetails';
 import { Principal } from '../../pages/Principal';
-
-export function MainRouter() {
-  return (
-    <Routes>
-      <Route path='/' element=<Principal /> />{' '}
-      {/* essa linha so ta aqui para quando abrir o projeto ele nao entrar na pagina 404 */}
-      <Route path='/Pokedex' element=<Pokedex /> />
-      <Route path='/Principal' element=<Principal /> />
-      <Route path='*' element=<NotFound /> />
-    </Routes>
-  );
-}
+import { NotFound } from '../../pages/NotFound';
+export function MainRouter(){return <Routes><Route path="/" element={<SiteLayout><Principal/></SiteLayout>}/><Route path="/Principal" element={<SiteLayout><Principal/></SiteLayout>}/><Route path="/Pokedex" element={<SiteLayout><Pokedex/></SiteLayout>}/><Route path="/pokemon/:name" element={<SiteLayout><PokemonDetails/></SiteLayout>}/><Route path="*" element={<SiteLayout><NotFound/></SiteLayout>}/></Routes>;}

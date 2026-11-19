@@ -1,0 +1,1 @@
+.page{min-height:70vh;display:grid;place-content:center;justify-items:center;text-align:center;padding:30px}.page>span{font:700 11px var(--mono);letter-spacing:.15em;color:var(--accent)}.page h1{margin:16px 0 8px;font-size:clamp(42px,7vw,80px);letter-spacing:-.08em}.page p{margin:0 0 25px;color:var(--muted)}.page a{color:var(--accent);font-weight:800}
