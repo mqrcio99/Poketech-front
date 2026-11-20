@@ -2,6 +2,7 @@ import { ArrowDownAZ, BookOpen, Search, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { PokemonCard } from '../../components/PokemonCard';
+import { gifAssets } from '../../data/gifAssets';
 import { getPokemonList } from '../../services/pokemonService';
 import styles from './styles.module.css';
 
@@ -25,7 +26,7 @@ export function Pokedex() {
   }
 
   if (!isOpen) {
-    return <main className={styles.page}><section className={styles.closed}><div className={styles.deviceGlow}><img src="/pokedex-closed.png" alt="Pokédex fechada" /></div><div className={styles.closedInfo}><span className={styles.kicker}>POKÉDEX</span><h1>Pronta para abrir?</h1><button className={styles.openButton} type="button" onClick={() => setIsOpen(true)}><BookOpen size={18} /> Abrir Pokédex</button></div></section></main>;
+    return <main className={styles.page}><section className={styles.closed}><div className={styles.deviceGlow}><img src="/pokedex-closed.png" alt="Pokédex fechada" /><img className={styles.scanGif} src={gifAssets.pokedexScan} alt="" /></div><div className={styles.closedInfo}><span className={styles.kicker}>POKÉDEX</span><h1>Pronta para abrir?</h1><button className={styles.openButton} type="button" onClick={() => setIsOpen(true)}><BookOpen size={18} /> Abrir Pokédex</button></div></section></main>;
   }
 
   return <main className={styles.page}><section className={styles.openView}><div className={styles.deviceSide}><img src="/pokedex-closed.png" alt="Pokédex" /><button className={styles.closeButton} type="button" onClick={() => setIsOpen(false)} aria-label="Fechar Pokédex"><X size={17} /></button></div><div className={styles.screen}><header className={styles.screenHeader}><div><span className={styles.kicker}>CATÁLOGO</span><h1>Pokédex <em>151</em></h1></div><span className={styles.count}>{list.length}</span></header><div className={styles.toolbar}><label className={styles.filter}><Search size={16} /><input value={search} onChange={event => updateSearch(event.target.value)} placeholder="Buscar Pokémon" aria-label="Buscar Pokémon" /></label><button className={styles.sort} type="button" onClick={toggleSort}><ArrowDownAZ size={16} />{sort === 'number' ? 'Nº' : 'A–Z'}</button></div>{list.length ? <div className={styles.grid}>{list.map(pokemon => <PokemonCard key={pokemon.id} pokemon={pokemon} />)}</div> : <div className={styles.empty}>Nenhum resultado.</div>}</div></section></main>;
