@@ -4,6 +4,7 @@ import type { FormEvent } from 'react';
 import { Link } from 'react-router';
 import { pokemonCatalog } from '../../data/pokemon';
 import { gifAssets } from '../../data/gifAssets';
+import { rememberMatchedPokemon } from '../../services/pokemonService';
 import styles from './styles.module.css';
 
 type Attempt = { guess: string; match: boolean };
@@ -19,7 +20,9 @@ export function Principal() {
     event.preventDefault();
     const value = guess.trim();
     if (!value || finished) return;
-    setAttempts(current => [...current, { guess: value, match: value.toLowerCase() === secret.name }]);
+    const match = value.toLowerCase() === secret.name;
+    if (match) rememberMatchedPokemon(secret.id);
+    setAttempts(current => [...current, { guess: value, match }]);
     setGuess('');
   }
 

@@ -1,5 +1,7 @@
 import { pokemonCatalog, typeHints, type PokemonSummary } from '../data/pokemon';
 
+export type PokedexSort = 'number' | 'name' | 'similarity';
+
 export type PokemonDetails = PokemonSummary & {
   types: string[];
   height: string;
@@ -8,11 +10,51 @@ export type PokemonDetails = PokemonSummary & {
 };
 
 const api = 'https://pokeapi.co/api/v2/pokemon';
+export const matchedPokemonStorageKey = 'poketech:matched-pokemon-ids';
 
-export function getPokemonList(search = ''): PokemonSummary[] {
+export function getMatchedPokemonIds(): number[] {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(matchedPokemonStorageKey) ?? '[]');
+    return Array.isArray(stored) ? stored.filter((id): id is number => Number.isInteger(id) && id > 0) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function rememberMatchedPokemon(id: number) {
+  const ids = new Set(getMatchedPokemonIds());
+  ids.add(id);
+  window.localStorage.setItem(matchedPokemonStorageKey, JSON.stringify([...ids].sort((a, b) => a - b)));
+}
+
+export function getPokemonList(
+  search = '',
+  sort: PokedexSort = 'number',
+  matchedIds: number[] = [],
+  sorterOrder: number[] | null = null,
+): PokemonSummary[] {
   const query = search.trim().toLowerCase();
-  if (!query) return pokemonCatalog;
-  return pokemonCatalog.filter(pokemon => pokemon.name.includes(query) || String(pokemon.id) === query);
+  const items = pokemonCatalog.filter(pokemon => !query || pokemon.name.includes(query) || pokemon.displayName.toLowerCase().includes(query) || String(pokemon.id) === query);
+  const matched = new Set(matchedIds);
+
+  return [...items].sort((a, b) => {
+    if (sort === 'name') return a.displayName.localeCompare(b.displayName);
+
+    if (sort === 'similarity') {
+      if (sorterOrder?.length) {
+        const rank = new Map(sorterOrder.map((id, index) => [id, index]));
+        return (rank.get(a.id) ?? Number.MAX_SAFE_INTEGER) - (rank.get(b.id) ?? Number.MAX_SAFE_INTEGER) || a.id - b.id;
+      }
+
+      const aMatched = matched.has(a.id) ? 0 : 1;
+      const bMatched = matched.has(b.id) ? 0 : 1;
+      return aMatched - bMatched || a.id - b.id;
+    }
+
+    return a.id - b.id;
+  });
 }
 
 export async function getPokemonDetails(name: string): Promise<PokemonDetails> {
