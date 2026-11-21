@@ -11,7 +11,7 @@ type PokemonCardProps = {
 };
 
 export function PokemonCard({ pokemon, matched = false, similar = false }: PokemonCardProps) {
-  const cardState = matched ? styles.matched : similar ? styles.similar : '';
+  const cardState = `${matched ? styles.matched : styles.undiscovered} ${similar && !matched ? styles.similar : ''}`;
 
   return (
     <Link to={`/pokemon/${pokemon.name}`} className={`${styles.card} ${cardState}`}>
