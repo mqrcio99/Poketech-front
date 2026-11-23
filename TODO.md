@@ -8,6 +8,8 @@
 - [x] Grid responsivo com padrão de bolinhas e paleta azul.
 - [x] Registro visual dos Pokémon acertados pelo usuário.
 - [x] Ordenação `Nº`, `A–Z` e modo `SIM` preparado para o sorter.
+- [x] Cry no clique dos cards.
+- [x] Controles nostálgicos para ligar/silenciar e alternar entre áudio atual e clássico.
 - [ ] Conectar o serviço ao backend documentado.
 - [ ] Substituir o jogo local por sessões do backend.
 - [ ] Adicionar testes automatizados.
