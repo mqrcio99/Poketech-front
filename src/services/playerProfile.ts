@@ -12,7 +12,6 @@ export type CharacterOption = {
   description: string;
   tone: 'blue' | 'pink';
   image: string;
-  imageClassName?: string;
 };
 
 const profileKey = 'poketech:player-profile';
@@ -37,16 +36,14 @@ export const characterOptions: CharacterOption[] = [
     name: 'Misty',
     description: 'Energia de líder e coração de treinadora de água.',
     tone: 'pink',
-    image: '/characters/ash-misty-brock.jpg',
-    imageClassName: 'mistyCrop',
+    image: '/characters/misty.jpg',
   },
   {
     id: 'brock',
     name: 'Brock',
     description: 'Olhar estratégico e um time sempre bem cuidado.',
     tone: 'blue',
-    image: '/characters/ash-misty-brock.jpg',
-    imageClassName: 'brockCrop',
+    image: '/characters/brock.jpg',
   },
   {
     id: 'team-rocket',
