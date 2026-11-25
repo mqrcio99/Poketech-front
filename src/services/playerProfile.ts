@@ -43,7 +43,7 @@ export const characterOptions: CharacterOption[] = [
     name: 'Brock',
     description: 'Olhar estratégico e um time sempre bem cuidado.',
     tone: 'blue',
-    image: '/characters/brock.jpg',
+    image: '/characters/brock.png',
   },
   {
     id: 'team-rocket',
