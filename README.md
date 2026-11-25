@@ -1,75 +1,60 @@
-# React + TypeScript + Vite
+# Poketech
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Poketech é uma Pokédex interativa com desafio diário, progresso, favoritos, histórico, conquistas, cries e seleção de personagem. O frontend é React + TypeScript + Vite. A API REST opcional vive no mesmo repositório em `server/`.
 
-Currently, two official plugins are available:
+## Desenvolvimento local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Para usar a API local em outra sessão:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run api
 ```
+
+Copie `.env.example` para `.env.local` e configure:
+
+```env
+VITE_POKETECH_API_URL=http://localhost:8787
+VITE_POKETECH_PROFILE_ID=demo
+```
+
+Sem a API disponível, o frontend mantém fallback em `localStorage`.
+
+## Validação
+
+```bash
+npm run lint
+npm run build
+```
+
+## Deploy do frontend na Vercel
+
+O projeto está preparado para Vercel com `vercel.json`. Use a raiz do repositório como diretório do projeto; o build é `npm run build` e a saída é `dist`.
+
+Configure estas variáveis no projeto da Vercel:
+
+```env
+VITE_POKETECH_API_URL=https://SEU-BACKEND-REST
+VITE_POKETECH_PROFILE_ID=demo
+```
+
+`VITE_POKETECH_API_URL` deve apontar para a API publicada separadamente, por exemplo no Render. O servidor `server/index.mjs` não é executado pela hospedagem estática do frontend na Vercel.
+
+A publicação ainda não foi executada. Antes de publicar, confirme a URL final da API e o `CORS_ORIGIN` correspondente.
+
+## API REST
+
+- `GET /health`
+- `GET /api/v1/profiles/:profileId`
+- `PUT /api/v1/profiles/:profileId`
+- `GET /api/v1/profiles/:profileId/progress`
+- `GET /api/v1/profiles/:profileId/achievements`
+- `PUT /api/v1/profiles/:profileId/favorites/:pokemonId`
+- `POST /api/v1/profiles/:profileId/games`
+- `GET /api/v1/daily-challenge`
+
+O contrato completo está em [`rest-api-contract.md`](./rest-api-contract.md), e as instruções da API estão em [`server/README.md`](./server/README.md).
