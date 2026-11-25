@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const port = Number(process.env.PORT ?? 8787);
 const corsOrigin = process.env.CORS_ORIGIN ?? '*';
 const currentDir = dirname(fileURLToPath(import.meta.url));
-const dataFile = join(currentDir, 'data', 'profiles.json');
+const dataFile = process.env.POKETECH_DATA_FILE ?? join(currentDir, 'data', 'profiles.json');
 const emptyStore = { profiles: {} };
 
 async function loadStore() {
@@ -152,5 +152,7 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, '0.0.0.0', () => {
-  console.log(`Poketech API listening on port ${port}`);
+  const address = server.address();
+  const listeningPort = typeof address === 'object' && address ? address.port : port;
+  console.log(`Poketech API listening on port ${listeningPort}`);
 });

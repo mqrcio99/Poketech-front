@@ -28,8 +28,12 @@ Sem a API disponível, o frontend mantém fallback em `localStorage`.
 
 ```bash
 npm run lint
+npm run typecheck
+npm test
 npm run build
 ```
+
+`npm test` executa testes de integração da API REST com dados temporários, sem alterar o arquivo local de perfis.
 
 ## Deploy do frontend na Vercel
 
