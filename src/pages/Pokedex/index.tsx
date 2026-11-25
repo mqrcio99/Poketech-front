@@ -20,7 +20,7 @@ export function Pokedex() {
   const sortParam = params.get('sort');
   const sort: PokedexSort = sortParam === 'name' || sortParam === 'similarity' ? sortParam : 'number';
   const [sorterOrder, setSorterOrder] = useState<number[] | null>(null);
-  const [matchedIds] = useState(() => getMatchedPokemonIds());
+  const [matchedIds, setMatchedIds] = useState(() => getMatchedPokemonIds());
   const [favoriteIds, setFavoriteIds] = useState(() => getFavoritePokemonIds());
   const [showFavorites, setShowFavorites] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(() => getAudioPreferences().enabled);
@@ -39,6 +39,16 @@ export function Pokedex() {
     });
     return () => { active = false; };
   }, [sort, matchedIds]);
+
+  useEffect(() => {
+    const refreshProgress = () => setMatchedIds(getMatchedPokemonIds());
+    window.addEventListener('poketech:progress-updated', refreshProgress);
+    window.addEventListener('focus', refreshProgress);
+    return () => {
+      window.removeEventListener('poketech:progress-updated', refreshProgress);
+      window.removeEventListener('focus', refreshProgress);
+    };
+  }, []);
 
   function updateSearch(value: string) {
     setSearchInput(value);

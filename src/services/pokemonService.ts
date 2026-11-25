@@ -27,6 +27,14 @@ export function rememberMatchedPokemon(id: number) {
   const ids = new Set(getMatchedPokemonIds());
   ids.add(id);
   window.localStorage.setItem(matchedPokemonStorageKey, JSON.stringify([...ids].sort((a, b) => a - b)));
+  window.dispatchEvent(new CustomEvent('poketech:progress-updated'));
+}
+
+export function getNextChallengePokemon(excludedId?: number): PokemonSummary {
+  const matched = new Set(getMatchedPokemonIds());
+  const available = pokemonCatalog.filter(pokemon => !matched.has(pokemon.id) && pokemon.id !== excludedId);
+  const pool = available.length ? available : pokemonCatalog.filter(pokemon => pokemon.id !== excludedId);
+  return pool[Math.floor(Math.random() * pool.length)] ?? pokemonCatalog[0];
 }
 
 export function getPokemonList(
